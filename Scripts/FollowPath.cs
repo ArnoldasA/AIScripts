@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class FollowPath : MonoBehaviour
 {
+//declaring vars
     Transform goal;
     public float speed = 5f;
    public float accuracy = 1;
@@ -13,10 +14,11 @@ public class FollowPath : MonoBehaviour
     GameObject[] wps;
    // UnityEngine.AI.NavMeshAgent agent;
 
+
     GameObject currentNode;
     int Currentwp = 0;
     Graph g;
-     //Start is called before the first frame update
+ 
     void Start()
     {
         wps = wpMan.GetComponent<WayPointMang>().waypoints;
@@ -27,11 +29,7 @@ public class FollowPath : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+ //Telling the Ai where to go
     public void GotoHeli()
     {
         //agent.SetDestination(wps[4].transform.position);
@@ -47,7 +45,7 @@ public class FollowPath : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (g.getPathLength() == 0 || Currentwp == g.getPathLength()) // if these two are the same you are at the end
+        if (g.getPathLength() == 0 || Currentwp == g.getPathLength()) // Checking if we are at the end of our path
             return;
 
         //the node we are closet to
@@ -59,9 +57,9 @@ public class FollowPath : MonoBehaviour
             Currentwp++;//if we are close enough we increment to a new waypoint
         }
 
-        if (Currentwp < g.getPathLength())//if the waypoints arent at the end we carry on going
+        if (Currentwp < g.getPathLength())//If we did not reach the end of our waypoint  we go on
         {
-            goal = g.getPathPoint(Currentwp).transform;//the goal is the waypoint transform
+            goal = g.getPathPoint(Currentwp).transform;//We go to the transform of the waypoint
             Vector3 lookatGoal = new Vector3(goal.position.x, this.transform.position.y, goal.position.z);//where our next goal is
             Vector3 direction = lookatGoal - this.transform.position;//distance between goal and tank
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * rotspeed);//rotates accordingly to goal
