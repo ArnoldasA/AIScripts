@@ -4,7 +4,9 @@ using UnityEngine;
 
 public sealed class GameEnivroment 
 {
-    private static GameEnivroment instance;//point of this class is it cant be instantiated and instead it is a blueprint
+    //This class acts as a blueprint for other classes to inherit from
+    //Purpose of this script is to have a checkpoint system which Ai iterates over for it's path.
+    private static GameEnivroment instance;
     private List<GameObject> checkpoints = new List<GameObject>();
     public List<GameObject> Checkpoints { get { return checkpoints; } }
     public static GameEnivroment Singleton
@@ -19,15 +21,5 @@ public sealed class GameEnivroment
             return instance;
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+ 
 }
